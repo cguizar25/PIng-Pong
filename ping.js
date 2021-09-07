@@ -43,13 +43,15 @@ function resetto() {
   p1Display.textContent = p1Score;
   p2Score = 0;
   p2Display.textContent = p2Score;
+  p1Display.classList.remove('winner', 'loser');
+  p2Display.classList.remove('loser', 'winner');
 }
 
 function colorChange() {
-  if (p1Score === winningScore - 1) {
+  if (p1Score === winningScore) {
     p1Display.classList.add('winner');
     p2Display.classList.add('loser');
-  } else if (p2Score === winningScore - 1) {
+  } else if (p2Score === winningScore) {
     p1Display.classList.add('loser');
     p2Display.classList.add('winner');
   }
