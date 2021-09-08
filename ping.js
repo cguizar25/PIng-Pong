@@ -20,7 +20,8 @@ p1Button.addEventListener('click', () => {
     p1Display.textContent = p1Score;
     colorChange();
   } else if (p1Score === winningScore || p2Score === winningScore) {
-    p1Score += 0;
+    p1Button.disabled = true;
+    p2Button.disabled = true;
     colorChange();
   }
 })
@@ -31,7 +32,8 @@ p2Button.addEventListener('click', () => {
     p2Display.textContent = p2Score;
     colorChange();
   } else if (p1Score === winningScore || p2Score === winningScore) {
-    p2Score += 0;
+    p1Button.disabled = true;
+    p2Button.disabled = true;
     colorChange();
   }
 })
