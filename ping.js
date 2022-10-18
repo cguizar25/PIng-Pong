@@ -1,62 +1,60 @@
-const p1 = {
-  score: 0,
-  button: document.querySelector('#p1Button'),
-  display: document.querySelector('#p1Display'),
-}
-
-const p2 = {
-  score: 0,
-  button: document.querySelector('#p2Button'),
-  display: document.querySelector('#p2Display')
-}
-
-let winningScore = 3;
-
+const p1Button = document.querySelector('#p1Button');
+const p2Button = document.querySelector('#p2Button');
+const p1Display = document.querySelector('#p1Display');
+const p2Display = document.querySelector('#p2Display');
 const resetScore = document.querySelector('#reset');
 const winningScoreSelect = document.querySelector('#playto');
 
-const updateScores = (player, opponent) => {
-  if (player.score !== winningScore && opponent.score !== winningScore) {
-    player.score += 1;
-    player.display.textContent = player.score;
-    colorChange();
-  } else if (player.score === winningScore || opponent.score === winningScore) {
-    player.button.disabled = true;
-    opponent.button.disabled = true;
-    colorChange();
-  }
-}
+let p1Score = 0;
+let p2Score = 0;
+let winningScore = 3
 
 winningScoreSelect.addEventListener('change', () => {
   winningScore = parseInt(winningScoreSelect.value);
   resetto();
 });
 
-p1.button.addEventListener('click', () => {
-  updateScores(p1, p2);
+p1Button.addEventListener('click', () => {
+  if (p1Score !== winningScore && p2Score !== winningScore) {
+    p1Score += 1;
+    p1Display.textContent = p1Score;
+    colorChange();
+  } else if (p1Score === winningScore || p2Score === winningScore) {
+    p1Button.disabled = true;
+    p2Button.disabled = true;
+    colorChange();
+  }
 })
 
-p2.button.addEventListener('click', () => {
-  updateScores(p2, p1)
+p2Button.addEventListener('click', () => {
+  if(p2Score !== winningScore && p1Score !== winningScore) {
+    p2Score += 1;
+    p2Display.textContent = p2Score;
+    colorChange();
+  } else if (p1Score === winningScore || p2Score === winningScore) {
+    p1Button.disabled = true;
+    p2Button.disabled = true;
+    colorChange();
+  }
 })
 
 reset.addEventListener('click', resetto);
 
 function resetto() {
-  for (let p of [p1, p2]) {
-    p.score = 0;
-    p.display.textContent = 0;
-    p.display.classList.remove('winner', 'loser');
-    p.button.disabled = false;
-  }
+  p1Score = 0;
+  p1Display.textContent = p1Score;
+  p2Score = 0;
+  p2Display.textContent = p2Score;
+  p1Display.classList.remove('winner', 'loser');
+  p2Display.classList.remove('loser', 'winner');
 }
 
 function colorChange() {
-  if (p1.score === winningScore) {
-    p1.display.classList.add('winner');
-    p2.display.classList.add('loser');
-  } else if (p2.score === winningScore) {
-    p1.display.classList.add('loser');
-    p2.display.classList.add('winner');
+  if (p1Score === winningScore) {
+    p1Display.classList.add('winner');
+    p2Display.classList.add('loser');
+  } else if (p2Score === winningScore) {
+    p1Display.classList.add('loser');
+    p2Display.classList.add('winner');
   }
 }
